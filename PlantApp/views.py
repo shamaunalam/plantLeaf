@@ -30,15 +30,18 @@ def home(request):
         arr = model.predict(img.reshape(1,128,128,3))
         arr = arr.reshape(15)
         if arr.max()>=0.99:
+            print(arr.max())
             disease = ''
             for i in labels[np.where(arr==arr.max())[0]][0].split('_'):
                 disease = disease+' '+i
             disease = disease.strip()
-
+            plant = disease.split(' ')[0]
+            
             cure = suggestions.mapping[disease]
+            disease = ' '.join(disease.split(' ')[1:])
             inference = Inferences.objects.create(image = request.FILES['image'],prediction = disease)
             inference.save()
-            return render(request,'output.html',{'pred':inference,'cure':cure})
+            return render(request,'output.html',{'pred':inference,'cure':cure,'plant':plant})
         else:
             return render(request,'output.html',{'pred':{'prediction':'Unknown Leaf'},'cure':"Please Upload New Image"})
     else:
