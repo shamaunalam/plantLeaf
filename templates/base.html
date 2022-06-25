@@ -78,6 +78,7 @@
         width: 500px;
         color: rgb(0, 0, 0);
         border: 2px solid #01c7a3;
+        display:block;
       }
 
       ::-webkit-file-upload-button {
@@ -109,10 +110,13 @@
         border: 2px solid #01c7a3;
       }
     </style>
+    {% block extra_style %}{% endblock %}
   </head>
 
   <body>
       {% block content %}
       {% endblock %}
+
+      {% block scripts %}{% endblock %}
   </body>
 </html>

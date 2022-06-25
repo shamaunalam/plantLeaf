@@ -2,7 +2,7 @@ from django.shortcuts import render,HttpResponse
 from django.conf import settings
 import numpy as np
 import cv2
-from .models import Inferences
+from .models import Inferences,Query,Answer
 from . import suggestions
 # Create your views here.
 
@@ -53,4 +53,5 @@ def index(request):
 
 
 def forum(request):
-    return render(request,'forum.html')
+    queries = Query.objects.all()
+    return render(request,'forum.html',{"queries":queries})
