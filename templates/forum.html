@@ -208,27 +208,34 @@ body {
 	right: -10px;
 	top: 0;
 }
+.button {
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	margin: 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	border-radius:20px;
+	width:100%;
+  }
+  .button:hover {
+	background-color: crimson;
+	color: white;
+  }
 </style>
 
 {% endblock %}
 
 {% block content %}
 
-<section>
-	<form
-	  action=""
-	  method="post"
-	  enctype="multipart/form-data"
-	  onsubmit="showloading()"
-	>
-	  {% csrf_token %}
-	  <input type="file" name="image" />
+<section style="position:absolute">
 
-	  <input type="text" name="question" style="display:grid;width:25%;height:25%;"/>
-	  <input type="submit" name="submit" value="Ask" />
-	</form>
-  </section>
+<a href="{% url 'postquery' %}"><button class="button">Post a Question</button></a>
 
+</section>
 <div class="projcard-container">
 	{% for query in queries %}
 	<div class="projcard projcard-blue">

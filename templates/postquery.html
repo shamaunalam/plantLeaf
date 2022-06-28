@@ -3,6 +3,12 @@
 
 {% block extra_style %}
 <style>
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: green;
+    }
     .button {
         background-color: #4CAF50; /* Green */
         border: none;
@@ -14,7 +20,7 @@
         display: inline-block;
         font-size: 16px;
         border-radius:20px;
-        width:100%;
+        width:15%;
       }
       .button:hover {
         background-color: crimson;
@@ -23,13 +29,15 @@
 </style>
 {% endblock %}
 
-
 {% block content %}
 
-<section style="position:absolute">
-<a style="text-decoration:none" href="{% url 'home' %}"><button class='button'>Detect From Image</button></a>
-<br/>
-<a style="text-decoration:none" href="{% url 'forum' %}"><button class='button'>Ask on Forum</button></a>
-</section>
+<div class='center'>
+<form method='post' action="{% url 'postquery' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+{{form.as_table}}
+
+<input class="button" type="submit">
+</form>
+</div>
 
 {% endblock %}

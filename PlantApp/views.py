@@ -4,6 +4,7 @@ import numpy as np
 import cv2
 from .models import Inferences,Query,Answer
 from . import suggestions
+from .forms import QueryForm
 # Create your views here.
 
 def reformat(name):
@@ -55,3 +56,12 @@ def index(request):
 def forum(request):
     queries = Query.objects.all()
     return render(request,'forum.html',{"queries":queries})
+
+def postquery(request):
+    context = dict()
+    form = QueryForm(request.POST or None,request.FILES or None)
+    if form.is_valid():
+        form.save()
+    context['form']=form
+
+    return render(request,'postquery.html',context)
