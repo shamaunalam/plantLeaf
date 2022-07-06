@@ -1,10 +1,13 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,redirect
 from django.conf import settings
 import numpy as np
 import cv2
 from .models import Inferences,Query,Answer
 from . import suggestions
 from .forms import QueryForm
+
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.models import User
 # Create your views here.
 
 def reformat(name):
@@ -65,3 +68,40 @@ def postquery(request):
     context['form']=form
 
     return render(request,'postquery.html',context)
+
+def signin(request):
+
+    if request.method=='POST':
+        uname = request.POST['username']
+        pwd   = request.POST['password']
+        user = authenticate(username=uname,password=pwd)
+        if user is not None:
+            login(request,user)
+            return redirect('index')
+        else:
+            return redirect('login')
+    return render(request,'login.html')
+
+def signup(request):
+    if request.method=='POST':
+        uname = request.POST['username']
+        pwd   = request.POST['password']
+        name  = request.POST['name']
+
+        user = User.objects.create(username=uname,first_name=name)
+        user.set_password(pwd)
+        user.save()
+        return redirect("login")
+    return render(request,'login.html')
+
+def answerpage(request,id):
+    try:
+        query = Query.objects.get(queryId=id)
+        answers = Answer.objects.filter(query=query)
+
+        return render(request,'answers.html',{'answers':answers})
+
+    except Query.DoesNotExist():
+        return redirect('forum')
+    except Answer.DoesNotExist():
+        return redirect('forum')

@@ -243,9 +243,12 @@ body {
 			<img class="projcard-img" src={{query.image.url}} />
 			<div class="projcard-textbox">
 				<div class="projcard-title">{{query.query}}</div>
-				<div class="projcard-subtitle">This explains the card in more detail</div>
+				<div class="projcard-subtitle">{% comment %} This explains the card in more detail {% endcomment %}</div>
 				<div class="projcard-bar"></div>
-				<div class="projcard-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+				<div class="projcard-description">{% comment %} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. {% endcomment %}
+					<a class="button" href="{% url 'answers' query.queryId %}">Learn More</a>
+				</div>
+				<hr>
 				<div class="projcard-tagbox">
 					<span class="projcard-tag">Plant</span>
 					<span class="projcard-tag">Disease</span>

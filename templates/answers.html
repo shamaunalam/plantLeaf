@@ -1,0 +1,28 @@
+{% extends 'forum.html' %}
+
+{% block content %}
+
+<div class="projcard-container">
+	{% for answer in answers %}
+	<div class="projcard projcard-blue">
+		<div class="projcard-innerbox">
+			<img class="projcard-img" src={{answer.query.image.url}} />
+			<div class="projcard-textbox">
+				<div class="projcard-title">{{answer.res}}</div>
+				<div class="projcard-subtitle">{% comment %} This explains the card in more detail {% endcomment %}</div>
+				<div class="projcard-bar"></div>
+				<div class="projcard-description">{% comment %} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. {% endcomment %}
+					{% comment %} <a class="button" href="{% url 'answers' query.queryId %}">Learn More</a> {% endcomment %}
+				</div>
+				<div class="projcard-tagbox">
+					<span class="projcard-tag">Plant</span>
+					<span class="projcard-tag">Disease</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+
+
+{% endblock %}
