@@ -5,6 +5,7 @@ import cv2
 from .models import Inferences,Query,Answer
 from . import suggestions
 from .forms import QueryForm
+from django.core.exceptions import ObjectDoesNotExist
 
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
@@ -95,13 +96,14 @@ def signup(request):
     return render(request,'login.html')
 
 def answerpage(request,id):
+    if request.method=='POST':
+        answer = Answer.objects.create(query=Query.objects.get(queryId=id),res=request.POST['res'])
+        answer.save()
     try:
         query = Query.objects.get(queryId=id)
         answers = Answer.objects.filter(query=query)
 
-        return render(request,'answers.html',{'answers':answers})
+        return render(request,'answers.html',{'id':id,'answers':answers})
 
-    except Query.DoesNotExist():
-        return redirect('forum')
-    except Answer.DoesNotExist():
-        return redirect('forum')
+    except ObjectDoesNotExist:
+        return render(request,'answers.html',{"id":id})

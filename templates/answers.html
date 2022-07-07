@@ -23,6 +23,9 @@
 	</div>
 	{% endfor %}
 </div>
-
-
+<form method='post' action="{% url 'answers' id %}">
+	{% csrf_token %}
+	<input type="text" name="res" placeholder = "Write your answer here" style="height:100px; width:500px;">
+	<input type="submit">
+</form>
 {% endblock %}
